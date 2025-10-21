@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Kerbl Welt",
+        "description": "Enter your Kerbl Welt account credentials to connect your AKO Smart Satellite electric fence monitor.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to Kerbl Welt API. Please check your internet connection and try again.",
+      "invalid_auth": "Invalid email or password. Please check your credentials and try again.",
+      "unknown": "An unexpected error occurred. Please try again later."
+    },
+    "abort": {
+      "already_configured": "This Kerbl Welt account is already configured."
+    }
+  }
+}

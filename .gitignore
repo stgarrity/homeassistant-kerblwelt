@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Home Assistant
+*.db
+*.db-shm
+*.db-wal
+*.log
+.storage/
+.cloud/
+OZW_Log.txt
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Python
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Test credentials
+test_credentials.py
+secrets.yaml
