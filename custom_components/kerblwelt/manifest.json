@@ -1,9 +1,9 @@
 {
   "domain": "kerblwelt",
   "name": "Kerbl Welt",
-  "codeowners": ["@sgarrity"],
+  "codeowners": ["@stgarrity"],
   "config_flow": true,
-  "documentation": "https://github.com/sgarrity/homeassistant-kerblwelt",
+  "documentation": "https://github.com/stgarrity/homeassistant-kerblwelt",
   "integration_type": "device",
   "iot_class": "cloud_polling",
   "requirements": ["kerblwelt-api>=0.1.0"],

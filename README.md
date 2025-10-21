@@ -50,7 +50,7 @@ Each sensor includes additional attributes:
 2. Go to "Integrations"
 3. Click the three dots in the top right
 4. Select "Custom repositories"
-5. Add `https://github.com/sgarrity/homeassistant-kerblwelt` as an integration
+5. Add `https://github.com/stgarrity/homeassistant-kerblwelt` as an integration
 6. Click "Install"
 7. Restart Home Assistant
 
@@ -275,7 +275,7 @@ MIT License - see [LICENSE](../LICENSE) file
 
 ## Support
 
-- [GitHub Issues](https://github.com/sgarrity/homeassistant-kerblwelt/issues)
+- [GitHub Issues](https://github.com/stgarrity/homeassistant-kerblwelt/issues)
 - [Home Assistant Community](https://community.home-assistant.io/)
 
 ## Disclaimer
