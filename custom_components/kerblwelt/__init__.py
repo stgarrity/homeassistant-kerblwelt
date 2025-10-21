@@ -5,11 +5,11 @@ from __future__ import annotations
 import logging
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, Platform
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
-from .const import DOMAIN
+from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN
 from .coordinator import KerblweltDataUpdateCoordinator
 
 # Import API client
