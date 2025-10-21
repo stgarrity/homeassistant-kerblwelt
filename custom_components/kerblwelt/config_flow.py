@@ -28,8 +28,6 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
     # Import here to avoid dependency issues
-    import sys
-    sys.path.insert(0, "/Users/sgarrity/projects/kerblwelt/kerblwelt-api")
     from kerblwelt_api import KerblweltClient, InvalidCredentialsError
 
     try:

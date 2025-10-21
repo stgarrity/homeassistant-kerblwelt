@@ -13,8 +13,6 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from .const import CONF_EMAIL, CONF_PASSWORD, DEFAULT_SCAN_INTERVAL, DOMAIN
 
 # Import API client
-import sys
-sys.path.insert(0, "/Users/sgarrity/projects/kerblwelt/kerblwelt-api")
 from kerblwelt_api import (
     KerblweltClient,
     InvalidCredentialsError,

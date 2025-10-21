@@ -13,8 +13,6 @@ from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN
 from .coordinator import KerblweltDataUpdateCoordinator
 
 # Import API client
-import sys
-sys.path.insert(0, "/Users/sgarrity/projects/kerblwelt/kerblwelt-api")
 from kerblwelt_api import KerblweltClient, ConnectionError as KerblweltConnectionError
 
 _LOGGER = logging.getLogger(__name__)

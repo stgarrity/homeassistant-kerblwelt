@@ -39,7 +39,7 @@ from .const import (
 from .coordinator import KerblweltDataUpdateCoordinator
 
 # Import API models
-from .kerblwelt_api import SmartSatelliteDevice, DeviceEventCount
+from kerblwelt_api import SmartSatelliteDevice, DeviceEventCount
 
 _LOGGER = logging.getLogger(__name__)
 
