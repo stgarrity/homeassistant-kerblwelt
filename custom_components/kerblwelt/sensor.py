@@ -39,9 +39,7 @@ from .const import (
 from .coordinator import KerblweltDataUpdateCoordinator
 
 # Import API models
-import sys
-sys.path.insert(0, "/Users/sgarrity/projects/kerblwelt/kerblwelt-api")
-from kerblwelt_api import SmartSatelliteDevice, DeviceEventCount
+from .kerblwelt_api import SmartSatelliteDevice, DeviceEventCount
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -66,7 +64,7 @@ SENSOR_TYPES: tuple[KerblweltSensorEntityDescription, ...] = (
     KerblweltSensorEntityDescription(
         key="fence_voltage",
         name="Fence Voltage",
-        native_unit_of_measurement=UnitOfElectricPotential.VOLT,
+        native_unit_of_measurement="kV",
         device_class=SensorDeviceClass.VOLTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:lightning-bolt",
