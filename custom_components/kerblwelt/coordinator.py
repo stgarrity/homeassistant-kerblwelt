@@ -15,8 +15,8 @@ from .const import CONF_EMAIL, CONF_PASSWORD, DEFAULT_SCAN_INTERVAL, DOMAIN
 # Import API client
 from kerblwelt_api import (
     KerblweltClient,
+    AuthenticationError,
     InvalidCredentialsError,
-    TokenExpiredError,
     APIError,
     ConnectionError as KerblweltConnectionError,
 )
@@ -60,20 +60,48 @@ class KerblweltDataUpdateCoordinator(DataUpdateCoordinator):
 
             return device_data
 
-        except (InvalidCredentialsError, TokenExpiredError) as err:
-            # Auth error - raise ConfigEntryAuthFailed to trigger re-authentication
-            _LOGGER.error("Authentication error: %s", err)
-            raise ConfigEntryAuthFailed("Authentication failed") from err
+        except (AuthenticationError, APIError) as err:
+            # The access token expired or the token-refresh flow failed. Because
+            # the coordinator holds the account credentials, recover by performing
+            # a full re-login and retrying once - rather than going dark until the
+            # next Home Assistant restart. Non-auth API errors (e.g. 429 rate
+            # limiting) are left to the coordinator's normal retry backoff.
+            if isinstance(err, APIError) and err.status_code not in (401, None):
+                _LOGGER.error("API error: %s", err)
+                raise UpdateFailed(
+                    f"Error communicating with Kerbl Welt API: {err}"
+                ) from err
+
+            _LOGGER.warning(
+                "Auth/token failure (%s); re-authenticating with stored credentials",
+                err,
+            )
+            try:
+                await self.client.authenticate(
+                    self.entry.data[CONF_EMAIL],
+                    self.entry.data[CONF_PASSWORD],
+                )
+            except InvalidCredentialsError as auth_err:
+                # Credentials are genuinely bad - prompt the user to re-auth.
+                _LOGGER.error("Stored credentials rejected: %s", auth_err)
+                raise ConfigEntryAuthFailed("Authentication failed") from auth_err
+            except Exception as auth_err:  # noqa: BLE001
+                # Transient failure during re-login - retry on the next interval.
+                raise UpdateFailed(
+                    f"Re-authentication failed: {auth_err}"
+                ) from auth_err
+
+            try:
+                return await self.client.get_all_device_data()
+            except Exception as err2:  # noqa: BLE001
+                raise UpdateFailed(
+                    f"Error fetching data after re-authentication: {err2}"
+                ) from err2
 
         except KerblweltConnectionError as err:
             # Connection error - will retry automatically
             _LOGGER.error("Connection error: %s", err)
             raise UpdateFailed(f"Error connecting to Kerbl Welt API: {err}") from err
-
-        except APIError as err:
-            # API error - will retry automatically
-            _LOGGER.error("API error: %s", err)
-            raise UpdateFailed(f"Error communicating with Kerbl Welt API: {err}") from err
 
         except Exception as err:
             # Unexpected error
